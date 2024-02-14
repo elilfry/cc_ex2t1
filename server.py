@@ -91,9 +91,9 @@ def server(host: str, port: int) -> None:
         # * Fill in start (1)
 
 
-        server_socket.bind(host,port)
+        server_socket.bind((host,port))
         server_socket.listen(1)
-        print("The server is ready to receive")
+        #print("The server is ready to receive")
         # * Fill in end (1)
 
         threads = []
@@ -128,7 +128,8 @@ def client_handler(client_socket: socket.socket, client_address: tuple[str, int]
         print(f"Conection established with {client_addr}")
         while True:
 
-            data = client_socket.recv(1024) # * Fill in start (3) # * Fill in end (3)
+            data = client_socket.recv(8192)
+            # * Fill in start (3) # * Fill in end (3)
             if not data:
                 break
             try:
@@ -150,6 +151,7 @@ def client_handler(client_socket: socket.socket, client_address: tuple[str, int]
                 # * Fill in start (4)
                 client_socket.sendall(response)
                 client_socket.close()
+                break
                 # * Fill in end (4)
 
             except Exception as e:

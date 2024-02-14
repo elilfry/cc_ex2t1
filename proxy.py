@@ -86,7 +86,7 @@ def proxy(proxy_address: tuple[str, int], server_adress: tuple[str, int]) -> Non
 
         # Prepare the proxy socket
         # * Fill in start (1)
-        proxy_socket.bind(proxy_host, proxy_port)
+        proxy_socket.bind(proxy_address)
         proxy_socket.listen(3)
         # * Fill in end (1)
 
@@ -123,7 +123,8 @@ def client_handler(client_socket: socket.socket, client_address: tuple[str, int]
         while True:
             # Receive data from the client
 
-            data = client_socket.recv(1024) # * Fill in start (3) # * Fill in end (3)
+            data = client_socket.recv(8192)
+            # * Fill in start (3) # * Fill in end (3)
 
             if not data:
                 break
@@ -160,6 +161,7 @@ def client_handler(client_socket: socket.socket, client_address: tuple[str, int]
                 # * Fill in start (4)
                 client_socket.sendall(response)
                 client_socket.close()
+                break
                 # * Fill in end (4)
 
             except Exception as e:
